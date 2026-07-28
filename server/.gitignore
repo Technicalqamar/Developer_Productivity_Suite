@@ -1,0 +1,31 @@
+# dependencies
+node_modules/
+
+# env files
+.env
+.env.local
+.env.*.local
+
+# editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# os
+.DS_Store
+Thumbs.db
+
+# logs
+*.log
+npm-debug.log*
+
+# coverage
+coverage/
+
+# storage (runtime-generated files)
+server/src/storage/generated/*
+!server/src/storage/generated/.gitkeep
+server/src/storage/temp/*
+!server/src/storage/temp/.gitkeep
