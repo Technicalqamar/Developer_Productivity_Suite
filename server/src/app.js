@@ -5,6 +5,9 @@ import morgan from "morgan";
 import compression from "compression";
 import rateLimit from "express-rate-limit";
 
+import notFound from "./middlewares/notFound.js";
+import errorHandler from "./middlewares/errorHandler.js";
+
 const app = express();
 
 app.use(helmet());
@@ -26,13 +29,7 @@ app.get("/api/health", (req, res) => {
   res.json({ success: true, message: "Developer Productivity Suite API is running." });
 });
 
-app.use((req, res) => {
-  res.status(404).json({ success: false, message: "Not Found" });
-});
-
-app.use((err, req, res, _next) => {
-  console.error(err.stack);
-  res.status(err.status || 500).json({ success: false, message: err.message || "Internal Server Error" });
-});
+app.use(notFound);
+app.use(errorHandler);
 
 export default app;
