@@ -1,5 +1,4 @@
-console.log("MONGODB_URI =", process.env.MONGODB_URI);
-const env =  {
+const env = {
   NODE_ENV: process.env.NODE_ENV || "development",
   PORT: parseInt(process.env.PORT, 10) || 5000,
   MONGODB_URI: process.env.MONGODB_URI || "mongodb://localhost:27017/dps",

@@ -7,6 +7,7 @@ import rateLimit from "express-rate-limit";
 
 import notFound from "./middlewares/notFound.js";
 import errorHandler from "./middlewares/errorHandler.js";
+import authRoutes from "./routes/auth.routes.js";
 
 const app = express();
 
@@ -28,6 +29,8 @@ app.use(
 app.get("/api/health", (req, res) => {
   res.json({ success: true, message: "Developer Productivity Suite API is running." });
 });
+
+app.use("/api/auth", authRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
