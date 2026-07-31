@@ -2,7 +2,7 @@ import User from "../models/User.js";
 import { hashPassword } from "../utils/password.js";
 import AppError from "../utils/AppError.js";
 
-export const registerUser = async ({ fullName, email, password }) => {
+const createUserAccount = async ({ fullName, email, password, role }) => {
   const existing = await User.findOne({ email });
 
   if (existing) {
@@ -15,6 +15,7 @@ export const registerUser = async ({ fullName, email, password }) => {
     fullName,
     email,
     password: hashed,
+    role,
   });
 
   return {
@@ -23,6 +24,14 @@ export const registerUser = async ({ fullName, email, password }) => {
     email: user.email,
     role: user.role,
   };
+};
+
+export const registerUser = async ({ fullName, email, password }) => {
+  return createUserAccount({ fullName, email, password, role: "developer" });
+};
+
+export const registerDeveloper = async ({ fullName, email, password }) => {
+  return createUserAccount({ fullName, email, password, role: "developer" });
 };
 
 export const loginUser = async () => {};

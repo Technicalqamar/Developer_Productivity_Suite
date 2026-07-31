@@ -14,6 +14,19 @@ export const register = async (req, res, next) => {
   }
 };
 
+export const registerDeveloper = async (req, res, next) => {
+  try {
+    const user = await authService.registerDeveloper(req.body);
+    ApiResponse.success(res, {
+      message: "Developer account created successfully.",
+      data: user,
+      statusCode: 201,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const login = (req, res) => {
   ApiResponse.error(res, { message: "Not Implemented", statusCode: 501 });
 };
