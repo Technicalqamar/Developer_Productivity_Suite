@@ -40,6 +40,19 @@ export const loginDeveloper = async (req, res, next) => {
   }
 };
 
+export const loginAdmin = async (req, res, next) => {
+  try {
+    const data = await authService.loginAdmin(req.body);
+    ApiResponse.success(res, {
+      message: "Admin login successful.",
+      data,
+      statusCode: 200,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const login = (req, res) => {
   ApiResponse.error(res, { message: "Not Implemented", statusCode: 501 });
 };

@@ -39,7 +39,7 @@ export const developerRegisterSchema = z
     path: ["confirmPassword"],
   });
 
-export const developerLoginSchema = z.object({
+const credentialsSchema = z.object({
   email: z
     .string({ required_error: "Email is required" })
     .min(1, "Email is required")
@@ -50,5 +50,8 @@ export const developerLoginSchema = z.object({
     .string({ required_error: "Password is required" })
     .min(1, "Password is required"),
 });
+
+export const developerLoginSchema = credentialsSchema;
+export const adminLoginSchema = credentialsSchema;
 
 export const loginSchema = {};

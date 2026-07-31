@@ -35,7 +35,7 @@ export const registerDeveloper = async ({ fullName, email, password }) => {
   return createUserAccount({ fullName, email, password, role: "developer" });
 };
 
-export const loginDeveloper = async ({ email, password }) => {
+const authenticateUser = async ({ email, password, requiredRole }) => {
   const user = await User.findOne({ email }).select("+password");
 
   if (!user) {
@@ -52,7 +52,7 @@ export const loginDeveloper = async ({ email, password }) => {
     throw new AppError("Account is inactive.", 403);
   }
 
-  if (user.role !== "developer") {
+  if (user.role !== requiredRole) {
     throw new AppError("Access denied.", 403);
   }
 
@@ -71,6 +71,14 @@ export const loginDeveloper = async ({ email, password }) => {
       role: user.role,
     },
   };
+};
+
+export const loginDeveloper = async ({ email, password }) => {
+  return authenticateUser({ email, password, requiredRole: "developer" });
+};
+
+export const loginAdmin = async ({ email, password }) => {
+  return authenticateUser({ email, password, requiredRole: "admin" });
 };
 
 export const loginUser = async () => {};

@@ -5,6 +5,7 @@ import {
   registerSchema,
   developerRegisterSchema,
   developerLoginSchema,
+  adminLoginSchema,
 } from "../validations/auth.validation.js";
 
 const router = Router();
@@ -19,6 +20,11 @@ router.post(
   "/developer/login",
   validate(developerLoginSchema),
   authController.loginDeveloper
+);
+router.post(
+  "/admin/login",
+  validate(adminLoginSchema),
+  authController.loginAdmin
 );
 router.post("/login", authController.login);
 router.post("/logout", authController.logout);
