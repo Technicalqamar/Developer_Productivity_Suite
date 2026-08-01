@@ -1,11 +1,14 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
 import AuthLayout from "@/layouts/AuthLayout";
-import DashboardLayout from "@/layouts/DashboardLayout";
+import AdminLayout from "@/layouts/AdminLayout";
+import DeveloperLayout from "@/layouts/DeveloperLayout";
 import ProtectedRoute from "./ProtectedRoute";
 import AdminRoute from "./AdminRoute";
 import DeveloperRoute from "./DeveloperRoute";
 import Landing from "@/pages/Landing";
+import NotFound from "@/pages/common/NotFound";
+import SectionPlaceholder from "@/pages/common/SectionPlaceholder";
 import DeveloperLogin from "@/pages/auth/DeveloperLogin";
 import DeveloperRegister from "@/pages/auth/DeveloperRegister";
 import AdminLogin from "@/pages/auth/AdminLogin";
@@ -34,7 +37,7 @@ const router = createBrowserRouter([
     element: <Navigate to="/developer/login" replace />,
   },
   {
-    element: <DashboardLayout />,
+    element: <DeveloperLayout />,
     children: [
       {
         path: "/developer/dashboard",
@@ -47,6 +50,61 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/developer/projects",
+        element: (
+          <ProtectedRoute>
+            <DeveloperRoute>
+              <SectionPlaceholder title="My Projects" />
+            </DeveloperRoute>
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/developer/templates",
+        element: (
+          <ProtectedRoute>
+            <DeveloperRoute>
+              <SectionPlaceholder title="My Templates" />
+            </DeveloperRoute>
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/developer/tools",
+        element: (
+          <ProtectedRoute>
+            <DeveloperRoute>
+              <SectionPlaceholder title="Tools" />
+            </DeveloperRoute>
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/developer/profile",
+        element: (
+          <ProtectedRoute>
+            <DeveloperRoute>
+              <SectionPlaceholder title="Profile" />
+            </DeveloperRoute>
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/developer/settings",
+        element: (
+          <ProtectedRoute>
+            <DeveloperRoute>
+              <SectionPlaceholder title="Settings" />
+            </DeveloperRoute>
+          </ProtectedRoute>
+        ),
+      },
+    ],
+  },
+  {
+    element: <AdminLayout />,
+    children: [
+      {
         path: "/admin/dashboard",
         element: (
           <AdminRoute>
@@ -54,7 +112,51 @@ const router = createBrowserRouter([
           </AdminRoute>
         ),
       },
+      {
+        path: "/admin/tools",
+        element: (
+          <AdminRoute>
+            <SectionPlaceholder title="Tool Management" />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/admin/developers",
+        element: (
+          <AdminRoute>
+            <SectionPlaceholder title="Developers" />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/admin/projects",
+        element: (
+          <AdminRoute>
+            <SectionPlaceholder title="Projects" />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/admin/analytics",
+        element: (
+          <AdminRoute>
+            <SectionPlaceholder title="Analytics" />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/admin/settings",
+        element: (
+          <AdminRoute>
+            <SectionPlaceholder title="Settings" />
+          </AdminRoute>
+        ),
+      },
     ],
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 

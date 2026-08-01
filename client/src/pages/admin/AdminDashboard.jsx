@@ -1,26 +1,26 @@
-import { useNavigate } from "react-router-dom";
+import PageContainer from "@/components/ui/PageContainer";
+import PageTitle from "@/components/ui/PageTitle";
+import Card from "@/components/ui/Card";
 import useAuth from "@/hooks/useAuth";
 
 const AdminDashboard = () => {
-  const { logout } = useAuth();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logout();
-    navigate("/admin/login");
-  };
+  const { user } = useAuth();
 
   return (
-    <div className="rounded-lg bg-white p-8 text-center shadow-sm">
-      <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
-      <button
-        type="button"
-        onClick={handleLogout}
-        className="mt-6 rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
-      >
-        Logout
-      </button>
-    </div>
+    <PageContainer>
+      <PageTitle
+        title="Dashboard"
+        subtitle={`Welcome back, ${user?.fullName ?? "admin"}`}
+      />
+      <div className="mt-6">
+        <Card title="Getting started">
+          <p className="text-sm text-gray-500">
+            This is your admin dashboard. Sections for tool management,
+            developers, projects, analytics and settings will appear here.
+          </p>
+        </Card>
+      </div>
+    </PageContainer>
   );
 };
 
