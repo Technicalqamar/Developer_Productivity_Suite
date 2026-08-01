@@ -7,6 +7,11 @@ const env = {
   CLIENT_URL: process.env.CLIENT_URL || "http://localhost:5173",
   ADMIN_EMAIL: process.env.ADMIN_EMAIL || "",
   ADMIN_PASSWORD: process.env.ADMIN_PASSWORD || "",
+  MAIL_HOST: process.env.MAIL_HOST || "",
+  MAIL_PORT: process.env.MAIL_PORT || "587",
+  MAIL_USER: process.env.MAIL_USER || "",
+  MAIL_PASS: process.env.MAIL_PASS || "",
+  MAIL_FROM: process.env.MAIL_FROM || "",
 };
 
 export default env;

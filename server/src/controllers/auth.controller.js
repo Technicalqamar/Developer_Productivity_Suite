@@ -53,6 +53,33 @@ export const loginAdmin = async (req, res, next) => {
   }
 };
 
+export const forgotPassword = async (req, res, next) => {
+  try {
+    await authService.forgotPassword(req.body);
+    ApiResponse.success(res, { message: "OTP sent successfully.", statusCode: 200 });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const verifyOtp = async (req, res, next) => {
+  try {
+    await authService.verifyOtp(req.body);
+    ApiResponse.success(res, { message: "OTP verified successfully.", statusCode: 200 });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const resetPassword = async (req, res, next) => {
+  try {
+    await authService.resetPassword(req.body);
+    ApiResponse.success(res, { message: "Password reset successful.", statusCode: 200 });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const login = (req, res) => {
   ApiResponse.error(res, { message: "Not Implemented", statusCode: 501 });
 };

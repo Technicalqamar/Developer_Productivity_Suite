@@ -6,6 +6,9 @@ import {
   developerRegisterSchema,
   developerLoginSchema,
   adminLoginSchema,
+  forgotPasswordSchema,
+  verifyOtpSchema,
+  resetPasswordSchema,
 } from "../validations/auth.validation.js";
 
 const router = Router();
@@ -25,6 +28,21 @@ router.post(
   "/admin/login",
   validate(adminLoginSchema),
   authController.loginAdmin
+);
+router.post(
+  "/admin/forgot-password",
+  validate(forgotPasswordSchema),
+  authController.forgotPassword
+);
+router.post(
+  "/admin/verify-otp",
+  validate(verifyOtpSchema),
+  authController.verifyOtp
+);
+router.post(
+  "/admin/reset-password",
+  validate(resetPasswordSchema),
+  authController.resetPassword
 );
 router.post("/login", authController.login);
 router.post("/logout", authController.logout);
