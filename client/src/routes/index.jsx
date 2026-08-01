@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 
 import AuthLayout from "@/layouts/AuthLayout";
 import DashboardLayout from "@/layouts/DashboardLayout";
@@ -20,34 +20,39 @@ const router = createBrowserRouter([
   {
     element: <AuthLayout />,
     children: [
-      { path: "/login", element: <DeveloperLogin /> },
-      { path: "/register", element: <DeveloperRegister /> },
+      { path: "/developer/login", element: <DeveloperLogin /> },
+      { path: "/developer/register", element: <DeveloperRegister /> },
       { path: "/admin/login", element: <AdminLogin /> },
     ],
   },
   {
-    element: <ProtectedRoute />,
+    path: "/admin",
+    element: <Navigate to="/admin/login" replace />,
+  },
+  {
+    path: "/developer",
+    element: <Navigate to="/developer/login" replace />,
+  },
+  {
+    element: <DashboardLayout />,
     children: [
       {
-        element: <DashboardLayout />,
-        children: [
-          {
-            path: "/dashboard",
-            element: (
-              <DeveloperRoute>
-                <DeveloperDashboard />
-              </DeveloperRoute>
-            ),
-          },
-          {
-            path: "/admin/dashboard",
-            element: (
-              <AdminRoute>
-                <AdminDashboard />
-              </AdminRoute>
-            ),
-          },
-        ],
+        path: "/developer/dashboard",
+        element: (
+          <ProtectedRoute>
+            <DeveloperRoute>
+              <DeveloperDashboard />
+            </DeveloperRoute>
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/admin/dashboard",
+        element: (
+          <AdminRoute>
+            <AdminDashboard />
+          </AdminRoute>
+        ),
       },
     ],
   },

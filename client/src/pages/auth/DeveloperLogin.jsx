@@ -40,7 +40,7 @@ const DeveloperLogin = () => {
     const result = await login({ email, password });
 
     if (result.success) {
-      navigate("/dashboard");
+      navigate("/developer/dashboard");
     } else {
       setErrorMessage(result.message);
     }
@@ -120,7 +120,7 @@ const DeveloperLogin = () => {
       <p className="mt-4 text-center text-sm text-gray-500">
         New here?{" "}
         <Link
-          to="/register"
+          to="/developer/register"
           className="font-medium text-indigo-600 hover:text-indigo-500"
         >
           Create an account

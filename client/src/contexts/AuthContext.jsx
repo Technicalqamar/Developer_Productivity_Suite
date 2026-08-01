@@ -22,27 +22,53 @@ export const AuthProvider = ({ children }) => {
 
   const isAuthenticated = Boolean(token);
 
-  const login = useCallback(async (credentials) => {
-    setLoading(true);
+  const persistAuth = (data) => {
+    localStorage.setItem(TOKEN_KEY, data.token);
+    localStorage.setItem(USER_KEY, JSON.stringify(data.user));
+    setToken(data.token);
+    setUser(data.user);
+  };
 
-    try {
-      const data = await authService.loginDeveloper(credentials);
+  const authenticate = useCallback(
+    async (serviceMethod, credentials, fallbackMessage) => {
+      setLoading(true);
 
-      localStorage.setItem(TOKEN_KEY, data.token);
-      localStorage.setItem(USER_KEY, JSON.stringify(data.user));
-      setToken(data.token);
-      setUser(data.user);
+      try {
+        const data = await serviceMethod(credentials);
+        persistAuth(data);
 
-      return { success: true };
-    } catch (error) {
-      const message =
-        error.response?.data?.message || "Login failed. Please try again.";
+        return { success: true };
+      } catch (error) {
+        const message =
+          error.response?.data?.message || fallbackMessage;
 
-      return { success: false, message };
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+        return { success: false, message };
+      } finally {
+        setLoading(false);
+      }
+    },
+    []
+  );
+
+  const login = useCallback(
+    (credentials) =>
+      authenticate(
+        authService.loginDeveloper,
+        credentials,
+        "Login failed. Please try again."
+      ),
+    [authenticate]
+  );
+
+  const loginAdmin = useCallback(
+    (credentials) =>
+      authenticate(
+        authService.loginAdmin,
+        credentials,
+        "Admin login failed. Please try again."
+      ),
+    [authenticate]
+  );
 
   const logout = useCallback(() => {
     localStorage.removeItem(TOKEN_KEY);
@@ -57,6 +83,7 @@ export const AuthProvider = ({ children }) => {
     loading,
     isAuthenticated,
     login,
+    loginAdmin,
     logout,
   };
 

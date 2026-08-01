@@ -21,7 +21,7 @@ const DeveloperRegister = () => {
       return;
     }
 
-    const timer = setTimeout(() => navigate("/login"), 1500);
+    const timer = setTimeout(() => navigate("/developer/login"), 1500);
     return () => clearTimeout(timer);
   }, [successMessage, navigate]);
 
@@ -242,7 +242,7 @@ const DeveloperRegister = () => {
 
       <p className="mt-4 text-center text-sm text-gray-500">
         Already have an account?{" "}
-        <Link to="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
+        <Link to="/developer/login" className="font-medium text-indigo-600 hover:text-indigo-500">
           Login
         </Link>
       </p>

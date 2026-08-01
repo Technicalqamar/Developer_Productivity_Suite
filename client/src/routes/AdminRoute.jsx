@@ -2,9 +2,13 @@ import { Navigate } from "react-router-dom";
 import useAuth from "@/hooks/useAuth";
 
 const AdminRoute = ({ children }) => {
-  const { token } = useAuth();
+  const { token, user } = useAuth();
 
-  if (!token) {
+  if (!token || !user) {
+    return <Navigate to="/admin/login" replace />;
+  }
+
+  if (user.role !== "admin") {
     return <Navigate to="/admin/login" replace />;
   }
 

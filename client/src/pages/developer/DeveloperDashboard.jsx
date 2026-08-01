@@ -7,7 +7,7 @@ const DeveloperDashboard = () => {
 
   const handleLogout = () => {
     logout();
-    navigate("/login");
+    navigate("/developer/login");
   };
 
   return (

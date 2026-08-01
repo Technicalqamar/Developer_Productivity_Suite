@@ -2,10 +2,14 @@ import { Navigate } from "react-router-dom";
 import useAuth from "@/hooks/useAuth";
 
 const DeveloperRoute = ({ children }) => {
-  const { token } = useAuth();
+  const { token, user } = useAuth();
 
-  if (!token) {
-    return <Navigate to="/login" replace />;
+  if (!token || !user) {
+    return <Navigate to="/developer/login" replace />;
+  }
+
+  if (user.role !== "developer") {
+    return <Navigate to="/developer/login" replace />;
   }
 
   return children;
