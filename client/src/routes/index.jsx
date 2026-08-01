@@ -13,6 +13,7 @@ import DeveloperLogin from "@/pages/auth/DeveloperLogin";
 import DeveloperRegister from "@/pages/auth/DeveloperRegister";
 import AdminLogin from "@/pages/auth/AdminLogin";
 import AdminDashboard from "@/pages/admin/AdminDashboard";
+import ToolManagementPage from "@/pages/admin/tools";
 import DeveloperDashboard from "@/pages/developer/DeveloperDashboard";
 
 const router = createBrowserRouter([
@@ -116,7 +117,7 @@ const router = createBrowserRouter([
         path: "/admin/tools",
         element: (
           <AdminRoute>
-            <SectionPlaceholder title="Tool Management" />
+            <ToolManagementPage />
           </AdminRoute>
         ),
       },
