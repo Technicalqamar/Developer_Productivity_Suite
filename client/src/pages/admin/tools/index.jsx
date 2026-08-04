@@ -1,15 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
-import PageContainer from "@/components/ui/PageContainer";
-import PageTitle from "@/components/ui/PageTitle";
-import Button from "@/components/ui/Button";
-import Icon from "@/components/ui/Icon";
-import ConfirmDialog from "@/components/ui/ConfirmDialog";
-import ToolFilters from "./components/ToolFilters";
-import ToolsTable from "./components/ToolsTable";
-import AddToolModal from "./components/AddToolModal";
-import Toast from "./components/Toast";
-import { TOOL_STATUSES, TOOL_CATEGORIES } from "./data/constants";
-import * as toolService from "@/services/tool.service";
+import PageContainer from "@/components/ui/page-container/PageContainer";
+import PageTitle from "@/components/ui/page-title/PageTitle";
+import Button from "@/components/ui/button/Button";
+import Icon from "@/components/ui/icon/Icon";
+import ConfirmDialog from "@/components/ui/confirm-dialog/ConfirmDialog";
+import ToolFilters from "./components/tool-filters/ToolFilters";
+import ToolsTable from "./components/tool-table/ToolsTable";
+import AddToolModal from "./components/add-tool-modal/AddToolModal";
+import Toast from "./components/toast/Toast";
+import { TOOL_STATUSES, TOOL_CATEGORIES } from "./data/constants/constants";
+import * as toolService from "@/services/tool-service/tool.service";
 
 const capitalizeStatus = (status) =>
   status ? status.charAt(0).toUpperCase() + status.slice(1) : status;

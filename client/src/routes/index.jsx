@@ -1,20 +1,20 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
-import AuthLayout from "@/layouts/AuthLayout";
-import AdminLayout from "@/layouts/AdminLayout";
-import DeveloperLayout from "@/layouts/DeveloperLayout";
-import ProtectedRoute from "./ProtectedRoute";
-import AdminRoute from "./AdminRoute";
-import DeveloperRoute from "./DeveloperRoute";
-import Landing from "@/pages/Landing";
-import NotFound from "@/pages/common/NotFound";
-import SectionPlaceholder from "@/pages/common/SectionPlaceholder";
-import DeveloperLogin from "@/pages/auth/DeveloperLogin";
-import DeveloperRegister from "@/pages/auth/DeveloperRegister";
-import AdminLogin from "@/pages/auth/AdminLogin";
-import AdminDashboard from "@/pages/admin/AdminDashboard";
+import AuthLayout from "@/layouts/auth-layout/AuthLayout";
+import AdminLayout from "@/layouts/admin-layout/AdminLayout";
+import DeveloperLayout from "@/layouts/developer-layout/DeveloperLayout";
+import ProtectedRoute from "./protected-route/ProtectedRoute";
+import AdminRoute from "./admin-route/AdminRoute";
+import DeveloperRoute from "./developer-route/DeveloperRoute";
+import Landing from "@/pages/landing/Landing";
+import NotFound from "@/pages/common/not-found/NotFound";
+import SectionPlaceholder from "@/pages/common/section-placeholder/SectionPlaceholder";
+import DeveloperLogin from "@/pages/auth/developer-login/DeveloperLogin";
+import DeveloperRegister from "@/pages/auth/developer-register/DeveloperRegister";
+import AdminLogin from "@/pages/auth/admin-login/AdminLogin";
+import AdminDashboard from "@/pages/admin/admin-dashboard/AdminDashboard";
 import ToolManagementPage from "@/pages/admin/tools";
-import DeveloperDashboard from "@/pages/developer/DeveloperDashboard";
+import DeveloperDashboard from "@/pages/developer/developer-dashboard/DeveloperDashboard";
 
 const router = createBrowserRouter([
   {
