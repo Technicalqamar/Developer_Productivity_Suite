@@ -22,9 +22,20 @@ const ActionButton = ({ icon, label, danger, onClick }) => {
   );
 };
 
-const ToolActionMenu = ({ tool, onView, onEdit, onDelete, onTest, onPublish }) => {
+const ToolActionMenu = ({
+  tool,
+  onView,
+  onEdit,
+  onDelete,
+  onTest,
+  onDeprecate,
+  onRestore,
+  disabled = false,
+}) => {
   const [open, setOpen] = useState(false);
   const containerRef = useRef(null);
+  const isDeprecated = tool.status === "Deprecated";
+  const canDeprecate = tool.status === "Published";
 
   useEffect(() => {
     if (!open) {
@@ -51,9 +62,11 @@ const ToolActionMenu = ({ tool, onView, onEdit, onDelete, onTest, onPublish }) =
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
+        disabled={disabled}
         className={cn(
           "rounded-md p-1.5 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-700",
-          open && "bg-gray-100 text-gray-700"
+          open && "bg-gray-100 text-gray-700",
+          disabled && "cursor-not-allowed opacity-40"
         )}
         aria-label="Tool actions"
         aria-haspopup="menu"
@@ -69,8 +82,20 @@ const ToolActionMenu = ({ tool, onView, onEdit, onDelete, onTest, onPublish }) =
         >
           <ActionButton icon="eye" label="View" onClick={run(onView)} />
           <ActionButton icon="pencil" label="Edit" onClick={run(onEdit)} />
-          <ActionButton icon="flask" label="Test Tool" onClick={run(onTest)} />
-          <ActionButton icon="rocket" label="Publish" onClick={run(onPublish)} />
+          {isDeprecated ? (
+            <ActionButton icon="restore" label="Restore" onClick={run(onRestore)} />
+          ) : (
+            <>
+              <ActionButton icon="flask" label="Test Tool" onClick={run(onTest)} />
+              {canDeprecate && (
+                <ActionButton
+                  icon="archive"
+                  label="Deprecate"
+                  onClick={run(onDeprecate)}
+                />
+              )}
+            </>
+          )}
           <div className="my-1 border-t border-gray-100" />
           <ActionButton icon="trash" label="Delete" danger onClick={run(onDelete)} />
         </div>

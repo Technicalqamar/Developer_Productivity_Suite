@@ -5,6 +5,7 @@ import Input from "@/components/ui/Input";
 import Select from "@/components/ui/Select";
 import Textarea from "@/components/ui/Textarea";
 import Toggle from "@/components/ui/Toggle";
+import { ALLOWED_STATUS_TRANSITIONS } from "../data/constants";
 
 const createEmptyForm = () => ({
   name: "",
@@ -14,7 +15,7 @@ const createEmptyForm = () => ({
   description: "",
   icon: "",
   status: "Draft",
-  developerVisible: true,
+  developerVisible: false,
   comingSoon: false,
   displayOrder: 0,
 });
@@ -36,8 +37,23 @@ const AddToolModal = ({
     setForm(tool ? { ...tool } : createEmptyForm());
   }, [tool, open]);
 
-  const update = (field) => (event) =>
-    setForm((prev) => ({ ...prev, [field]: event.target.value }));
+  const slugify = (value) =>
+    String(value)
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+  const update = (field) => (event) => {
+    const value = event.target.value;
+    setForm((prev) => {
+      const next = { ...prev, [field]: value };
+      if (field === "name" && !isEdit && !prev.slug.trim()) {
+        next.slug = slugify(value);
+      }
+      return next;
+    });
+  };
 
   const updateToggle = (field) => (value) =>
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -46,6 +62,12 @@ const AddToolModal = ({
     event.preventDefault();
     onSubmit({ ...form });
   };
+
+  const statusOptions = isEdit && tool
+    ? [tool.status, ...(ALLOWED_STATUS_TRANSITIONS[tool.status] ?? [])]
+    : statuses;
+
+  const canManageVisibility = isEdit && form.status === "Published";
 
   const title = isView ? "View Tool" : isEdit ? "Edit Tool" : "Add Tool";
   const description = isView
@@ -144,9 +166,10 @@ const AddToolModal = ({
             label="Status"
             value={form.status}
             onChange={update("status")}
-            disabled={isView}
+            disabled={isView || !isEdit}
+            hint={isEdit ? "Move through the release lifecycle" : "New tools start as Draft"}
           >
-            {statuses.map((status) => (
+            {statusOptions.map((status) => (
               <option key={status} value={status}>
                 {status}
               </option>
@@ -168,14 +191,14 @@ const AddToolModal = ({
             description="Show this tool to developers"
             checked={Boolean(form.developerVisible)}
             onChange={updateToggle("developerVisible")}
-            disabled={isView}
+            disabled={isView || !canManageVisibility}
           />
           <Toggle
             label="Coming Soon"
             description="Mark this tool as coming soon"
             checked={Boolean(form.comingSoon)}
             onChange={updateToggle("comingSoon")}
-            disabled={isView}
+            disabled={isView || !canManageVisibility}
           />
         </div>
       </form>

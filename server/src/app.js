@@ -10,6 +10,7 @@ import errorHandler from "./middlewares/errorHandler.js";
 import authRoutes from "./routes/auth.routes.js";
 import testRoutes from "./routes/test.routes.js";
 import dashboardRoutes from "./routes/dashboard.routes.js";
+import { adminToolRouter, developerToolRouter } from "./routes/tool.routes.js";
 
 const app = express();
 
@@ -35,6 +36,8 @@ app.get("/api/health", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/test", testRoutes);
 app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/admin/tools", adminToolRouter);
+app.use("/api/tools", developerToolRouter);
 
 app.use(notFound);
 app.use(errorHandler);

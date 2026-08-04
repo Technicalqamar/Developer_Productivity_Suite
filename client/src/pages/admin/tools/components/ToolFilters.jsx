@@ -8,22 +8,27 @@ const ToolFilters = ({
   search,
   status,
   category,
+  developerVisible,
   statuses,
   categories,
   onSearchChange,
   onStatusChange,
   onCategoryChange,
+  onDeveloperVisibleChange,
   onReset,
 }) => {
   const hasActiveFilters =
-    search.trim() !== "" || status !== "all" || category !== "all";
+    search.trim() !== "" ||
+    status !== "all" ||
+    category !== "all" ||
+    developerVisible !== "all";
 
   return (
     <Card title="Filters">
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
         <Input
           label="Search"
-          placeholder="Search by name, slug or description"
+          placeholder="Search by name, slug or category"
           value={search}
           onChange={(event) => onSearchChange(event.target.value)}
         />
@@ -50,6 +55,15 @@ const ToolFilters = ({
               {option}
             </option>
           ))}
+        </Select>
+        <Select
+          label="Developer Visible"
+          value={developerVisible}
+          onChange={(event) => onDeveloperVisibleChange(event.target.value)}
+        >
+          <option value="all">All</option>
+          <option value="true">Visible</option>
+          <option value="false">Hidden</option>
         </Select>
         <div className="flex items-end">
           <Button
